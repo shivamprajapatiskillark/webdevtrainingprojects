@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Project01</title>
+
+		<style>
+			#root {
+				/* TRBL-ClockWise */
+				margin: 5px 20% 0px 20%;
+			}
+			body {
+				background-color: green;
+			}
+			#header {
+				background-color: white;
+				height: 75px;
+				width: 100%;
+				border-radius: 15px 15px 0px 0px;
+			}
+			#header > ul > li {
+				display: inline;
+				list-style-type: none;
+			}
+			#image {
+				width: 100%;
+				height: 250px;
+				background-color: white;
+				margin-top: 5px;
+				/* background-image: url('sofa.png'); */
+			}
+			#contentParent {
+				display: flex;
+				flex-direction: row;
+				margin-top: 5px;
+			}
+			#contentParent :first-child {
+				border-bottom-left-radius: 15px;
+				background-color: white;
+				height: 400px;
+				width: 70%;
+			}
+			#contentParent :nth-child(2) {
+				border-bottom-right-radius: 15px;
+				background-color: lightgray;
+				height: 400px;
+				width: 30%;
+				text-align: center;
+			}
+			#footer {
+				border-radius: 15px;
+				background-color: wheat;
+				height: 200px;
+				width: 100%;
+				margin-top: 5px;
+				text-align: center;
+			}
+			.aligncenter {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<!--Header (Menu options)  -->
+			<div id="header">
+				<ul>
+					<li>Home</li>
+					<li>Register</li>
+					<li>Login</li>
+					<li>Show</li>
+					<li>Contact</li>
+					<li>About</li>
+				</ul>
+			</div>
+			<!-- Body -->
+
+			<!-- Image -->
+			<div id="image">
+				<img src="./sofa.png" alt="Sofa Image" height="250px" width="100%" />
+			</div>
+
+			<!-- Cotent Big box and small box -->
+			<div id="contentParent">
+				<div class="aligncenter">Left Content</div>
+				<div class="aligncenter">Right Content</div>
+			</div>
+			<!-- Footer (Last white box) -->
+			<div id="footer" class="aligncenter">Footer</div>
+		</div>
+	</body>
+</html>
