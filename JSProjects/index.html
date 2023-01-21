@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>My Calculator</title>
+  <style>
+    body {
+      background-color: lightblue;
+    }
+
+    #root {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #inputContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #buttonContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .inputField {
+      margin: 5px
+    }
+
+    .labelContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 100%;
+
+    }
+
+    .inputLabel {
+      /* background-color: red; */
+      text-align: left;
+    }
+
+    .actionButton {
+      margin: 3px
+    }
+  </style>
+  <script>
+    var value1, value2, result;
+
+    function setValue1(e) {
+      value1 = e.target.value
+      console.log('new value1:', value1)
+    }
+
+    function setValue2(e) {
+      value2 = e.target.value
+      console.log('new value2:', value2)
+    }
+    function performAction(action) {
+
+      switch (action) {
+        case 'add':
+          result = parseInt(value1) + parseInt(value2)
+
+          break;
+        case 'sub':
+          result = parseInt(value1) - parseInt(value2)
+          break;
+        case 'mul':
+          result = parseInt(value1) * parseInt(value2)
+          break;
+        case 'div':
+          result = parseInt(value1) / parseInt(value2)
+          break;
+
+        default:
+          break;
+
+
+      }
+      // DOM MANIPULATION
+
+      // DOCUMENT OBJECT MODEL - Tree strcuture of HTML elements
+
+      const resultElement = document.getElementById('result')
+      let actualTextContent = resultElement.textContent
+      let finakTextContent = `${actualTextContent} ${result}`
+      resultElement.textContent = finakTextContent
+
+    }
+
+    function clearAll(){
+
+      const resultElement = document.getElementById('result')
+      let actualTextContent = resultElement.textContent
+      let finakTextContent = 'The Result is:'
+      resultElement.textContent = finakTextContent
+    }
+  </script>
+
+</head>
+
+<body>
+  <div id="root">
+    <div id="inputContainer">
+      <div class="labelContainer"> <label class="inputLabel">Enter your first value</label>
+      </div>
+      <input class="inputField" type="number" placeholder="Enter your first value" onblur="setValue1(event)" />
+      <div class="labelContainer">
+        <label class="inputLabel">Enter your second value</label>
+
+      </div>
+
+      <input class="inputField" type="number" placeholder="Enter your second value" onblur="setValue2(event)" />
+      <p id="result">The result is:</p>
+    </div>
+    <div id="buttonContainer">
+      <button class="actionButton" onclick="performAction('add')">+</button>
+      <button class="actionButton" onclick="performAction('sub')">-</button>
+      <button class="actionButton" onclick="performAction('mul')">X</button>
+      <button class="actionButton" onclick="performAction('div')">/</button>
+      <button class="actionButton" onClick="clearAll()">Clear</button>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
