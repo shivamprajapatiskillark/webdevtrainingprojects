@@ -1,0 +1,44 @@
+body {
+  background-color: lightcoral;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#buttonContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputField {
+  margin: 5px;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.inputLabel {
+  /* background-color: red; */
+  text-align: left;
+}
+
+.actionButton {
+  margin: 3px;
+}
