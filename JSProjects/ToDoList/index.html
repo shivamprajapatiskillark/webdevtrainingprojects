@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <script src="./myScript.js"></script>
+  <link rel="stylesheet" href="./mySyles.css">
+</head>
+<!-- 
+
+  We'll take user's input using scanf("Enter your task")
+  primitives -  int float char, strig
+  non primitive - array  object
+
+  then we'll push the new input into the array
+
+  for(int i = 0; i <array.length; i++){
+    printf(array[i]);
+  }
+
+  we'll loop through the array and and use printf to print the tasks on the screen
+  
+  event - key & keyCode
+  target->value - Value of the input field
+ -->
+
+<body>
+  <div id="root">
+
+    <div id="headingContainer">
+      <h1>What do you want to do today?</h1>
+    </div>
+    <div id="inputContainer">
+      <input id="inputTask" type="text" placeholder="buy milk" onkeydown="handleUserInput(event)" />
+    </div>
+    <div id="tasksContainer"></div>
+
+  </div>
+</body>
+
+</html>
