@@ -11,10 +11,12 @@ const => constat value, global and local both -
 function handleUserInput(event) {
   if (event.key === "Enter") {
     tasks.push(event.target.value);
+
     const inputElements = document.getElementsByTagName("INPUT");
     const taskInputElement = inputElements[0];
     taskInputElement.value = "";
     printTasksOnScreen();
+    printTaskNumbers();
   }
 }
 
@@ -33,9 +35,29 @@ function printTasksOnScreen() {
 
   const taskContainerElement = document.getElementById("tasksContainer");
   let listHtml = "<ol>";
+  // for -of loop  - Array
   for (let item of tasks) {
-    listHtml = listHtml + "<li>" + item + "</li>";
+    listHtml =
+      listHtml +
+      "<li>" +
+      item +
+      `<button onClick="removeTask('${item}')">Done</button>` +
+      "</li>";
   }
   listHtml = listHtml + "</ol>";
   taskContainerElement.innerHTML = listHtml;
+}
+
+function printTaskNumbers() {
+  let taskNumberString = tasks.length + " tasks";
+  const noOfTasksElement = document.getElementById("noOfTaksContainer");
+  noOfTasksElement.textContent = taskNumberString;
+}
+
+function removeTask(task) {
+  tasks = tasks.filter(function (item) {
+    return item !== task;
+  });
+  printTasksOnScreen();
+  printTaskNumbers();
 }
