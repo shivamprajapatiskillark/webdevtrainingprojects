@@ -8,6 +8,14 @@
 //   Body: body,
 //   Cache: 'default'
 // })
+// Asynchronous function- Promise based behavior\
+// // GET - Read only
+// POST - Write- Allows you to update the DB- Add new values in the DB
+// PUT - It simply repalces the existing values
+// PATCH - It partially updates the database- it faster, it helps in retaining  existing values.
+// DELETE - Delete the database
+
+// SQL Queries =>
 
 // JSON =  Javascript Object Notation
 // OFFSET ->  where to start from
@@ -74,7 +82,36 @@ const productUrl = "https://dummyjson.com/products";
 //  return
 // }
 
+// try
+// catch
+// finally
+
 // async await - Promise
+
+function makeUI(products) {
+
+
+  const productsElement = document.getElementById("products");
+  var productUIHTML = "";
+  //  FOR OF Loop
+  for (let product of products) {
+    // DOM Manipulation
+
+    productUIHTML =
+      productUIHTML +
+      `<div class="productContainer">
+    <div class="imageContainer">
+      <img class="productImage" src="${product.images[0]}" alt="${product.title}" />
+  
+    </div>
+  
+    <h3 class="title">${product.title}</h3>
+    <p class="description">${product.description}</p>
+    <h6 class="rating">${product.rating}</h6>
+  </div>`;
+  }
+  productsElement.innerHTML = productUIHTML;
+}
 
 async function fetchProducts() {
   const response = await fetch(productUrl, {
@@ -86,11 +123,24 @@ async function fetchProducts() {
     Cache: "default",
   }).then((response) => response.json());
 
-  console.log("Response", response);
-
-  console.log("Next line");
+  makeUI(response["products"]);
 }
 
+//
+/*
+While we make any API call, the ultimate operation is to migrate the data/content from frontend to backend or vice versa.
+
+JSON- Javascript object notation
+
+Asynchronous operation- > We make it wait for some operation to complete then start next operation
+Access the file to open it-> 
+then we'll modify the file 
+then save the file
+Promise based behavior
+Synchronous operation-> Con-current operation-> ALL IN GO
+
+
+*/
 fetchProducts();
 /*
 

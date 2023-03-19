@@ -1,3 +1,47 @@
 body {
-  background-color: blueviolet;
+  background-color: lightblue;
+}
+#products {
+  display: flex;
+  justify-items: space-between;
+  flex-wrap: wrap;
+}
+.productContainer {
+  height: 200px;
+  width: 100px;
+  flex-direction: column;
+  border: 2px solid blue;
+  background-color: white;
+
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.imageContainer {
+  height: 100px !important;
+  width: 100px !important;
+}
+.productImage {
+  object-fit: fill;
+  height: 100px;
+  width: 100px;
+}
+.title {
+  padding-left: 5px;
+  height: 10px;
+  font-size: 10px;
+}
+.description {
+  padding: 5px;
+  font-size: 12px;
+  text-align: justify;
+  text-overflow: ellipsis;
+  height: 20px !important;
+  overflow: hidden;
+  margin-top: 0px;
+}
+.rating {
+  width: 100%;
+  text-align: center;
+  margin: 0px 15px 0px 0px;
 }
