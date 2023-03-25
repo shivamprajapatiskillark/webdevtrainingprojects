@@ -45,3 +45,19 @@ body {
   text-align: center;
   margin: 0px 15px 0px 0px;
 }
+
+#header{
+  background-color: wheat;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+#heading{
+  /* background-color: red; */
+}
+#paginationContainer{
+  /* background-color: blue; */
+}

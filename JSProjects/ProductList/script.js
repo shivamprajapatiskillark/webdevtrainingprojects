@@ -1,96 +1,14 @@
-//  Arrow functions ES6
-// fetch('url', {
-//   Method: 'POST',
-//   Headers: {
-//     Accept: 'application.json',
-//     'Content-Type': 'application/json'
-//   },
-//   Body: body,
-//   Cache: 'default'
-// })
-// Asynchronous function- Promise based behavior\
-// // GET - Read only
-// POST - Write- Allows you to update the DB- Add new values in the DB
-// PUT - It simply repalces the existing values
-// PATCH - It partially updates the database- it faster, it helps in retaining  existing values.
-// DELETE - Delete the database
-
-// SQL Queries =>
-
-// JSON =  Javascript Object Notation
-// OFFSET ->  where to start from
-// LIMIT -> how many to pick
-
-/*
-Error handling
-
-try catch finally 
-
-*/
-
 const productUrl = "https://dummyjson.com/products";
+var currentOffset = 0,
+  pageSize = 10; // Number of products we want to show per page.
+var currentLimit = currentOffset + pageSize;
+var defaultSkip = 0,
+  defaultLimit = 100;
 
-// function fetchProducts() {
-//   fetch(productUrl, {
-//     Method: "GET",
-//     Headers: {
-//       Accept: "application.json",
-//       "Content-Type": "application/json",
-//     },
-//     Cache: "default",
-//   })
-//     .then(function (response) {
-//       response = response.json();
-//       return response;
-//     })
-//     .then(function (parsedResponse) {
-//       console.log(parsedResponse);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     })
-//     .finally(function () {
-//       console.log("FINALLY");
-//     });
-// }
+var allProducts = [];
 
-// const fetchProducts = () => {
-//   fetch(productUrl, {
-//     Method: "GET",
-//     Headers: {
-//       Accept: "application.json",
-//       "Content-Type": "application/json",
-//     },
-//     Cache: "default",
-//   })
-//     .then((response) => {
-//       response = response.json();
-//       return response;
-//     })
-//     .then((parsedResponse) => {
-//       console.log(parsedResponse);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     })
-//     .finally(function () {
-//       console.log("FINALLY");
-//     });
-// };
-// const fetchProducts = ()=>{
-//   // function body
-//  return
-// }
-
-// try
-// catch
-// finally
-
-// async await - Promise
-
+// A function to make the UI from the filtered products
 function makeUI(products) {
-
-
   const productsElement = document.getElementById("products");
   var productUIHTML = "";
   //  FOR OF Loop
@@ -113,8 +31,9 @@ function makeUI(products) {
   productsElement.innerHTML = productUIHTML;
 }
 
-async function fetchProducts() {
-  const response = await fetch(productUrl, {
+// API RELATED FUNCTIONS
+async function fetchProducts(skip, limit) {
+  return await fetch(`${productUrl}?limit=${limit}&skip=${skip}`, {
     Method: "GET",
     Headers: {
       Accept: "application.json",
@@ -122,35 +41,50 @@ async function fetchProducts() {
     },
     Cache: "default",
   }).then((response) => response.json());
-
-  makeUI(response["products"]);
 }
 
-//
-/*
-While we make any API call, the ultimate operation is to migrate the data/content from frontend to backend or vice versa.
+// Function  to filter the products
+function filterProducts() {
+  // slice(startIndex, endIndex+1)
+  //   const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+  // const citrus = fruits.slice(1, 5 (4+1));
+  // ["Orange", "Lemon", "Apple", "Mango"]
+  console.log(allProducts);
+  let filteredProducts = allProducts.slice(currentOffset, currentLimit);
+  makeUI(filteredProducts);
+}
 
-JSON- Javascript object notation
+async function onFirstLoad() {
+  const response = await fetchProducts(defaultSkip, defaultLimit);
+  allProducts = response["products"];
+  filterProducts();
+}
 
-Asynchronous operation- > We make it wait for some operation to complete then start next operation
-Access the file to open it-> 
-then we'll modify the file 
-then save the file
-Promise based behavior
-Synchronous operation-> Con-current operation-> ALL IN GO
+// DOCUMET ON LOAD - Runs Only once
+document.addEventListener("DOMContentLoaded", onFirstLoad);
 
+// PAGINATION RELATED FUNCTIONS
+// Arrow functions
+const handlePrevClick = async () => {
+  let newCurrentOffset = currentOffset - pageSize;
+  if (newCurrentOffset < 0) {
+    // disable Prev button
+    alert("Your are on the first page.");
+  } else {
+    currentOffset = newCurrentOffset;
+    currentLimit = currentOffset + pageSize;
+    filterProducts();
+  }
+};
 
-*/
-fetchProducts();
-/*
+const handleNextClick = async () => {
+  let newCurrentOffset = currentOffset + pageSize;
 
-ASYNC AWAIT
-
-In general, this concept helps in asynchronous development. 
-We have two keywords, i.e. async and await.
-
-async -> this keyword define that the function can now perform asynchronous operations.
-
-await -> this keyword holds the execution till the operation like api call or file read is completed.
-
-*/
+  if (newCurrentOffset + pageSize >= defaultLimit) {
+    alert("Your are on the last page.");
+  } else {
+    currentOffset = newCurrentOffset;
+    currentLimit = currentOffset + pageSize;
+    filterProducts();
+  }
+};

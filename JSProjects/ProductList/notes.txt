@@ -1,0 +1,121 @@
+PAGINATION- Dividing your whole data into multple pages 
+            it can of two types:
+            a) On Demand
+                    By default we bring a small chunk of data based on offset & limit
+                    Then onwards, we make API calls with the updated offset and limit as per user inputs.
+
+            b) Fetch all data in once then split into pages.- 
+                    Saves API calls but may increase first load time
+                    Also result in loading unnecessary data.
+                    Also, will impact the performance.
+                    NOT RECOMMENDED at for having a HUGE data.
+                    May be implemented incase of having very minimal data.
+
+
+While we make any API call, the ultimate operation is to migrate the data/content from frontend to backend or vice versa.
+
+JSON- Javascript object notation
+
+Asynchronous operation- > We make it wait for some operation to complete then start next operation
+Access the file to open it-> 
+then we'll modify the file 
+then save the file
+Promise based behavior
+Synchronous operation-> Con-current operation-> ALL IN GO
+
+ASYNC AWAIT
+
+In general, this concept helps in asynchronous development. 
+We have two keywords, i.e. async and await.
+
+async -> this keyword define that the function can now perform asynchronous operations.
+
+await -> this keyword holds the execution till the operation like api call or file read is completed.
+
+OFFSET AND LIMIT
+OFFSET- > How many records/rows to skip or from where to pick the data
+        OFFSET = 0 => no row/recors to skip or pick from top of the table.
+        OFFSET = 10=> skip first 10 rows/records OR start from 11th row
+LIMIT=> How many maximum number of rows to pick up.
+        LIMIT = 0 => NO record will be picked up.
+        LIMIT= 10 => Maximim 10 records will be fetched.
+
+GET API QUERY PARAMETERS- query Params
+
+        These are a few parameter we send to server along with API to specify the requirements.
+
+
+
+OFFSET AND LIMIT MODIFICATION LOGIC
+PAGE SIZE = 2
+
+First page =>  First & second product
+    currentSkip = 0, pageSize=2
+    skip=0/currentSkip, limit= 2, pageSize
+
+    *PREV BUTTON IS DISABLED
+
+    FROM SECOND ON CLICK OF PREV BUTTON
+    BEFORE = currentSkip=2, pageSize=2
+    skip =0 (currentSkip - pageSize), limit = 2/ pageSize
+    AFTER  currentSkip=0, pageSize 2,
+    
+
+
+Second Page => 3rd & 4th product -
+    FROM FIRST NEXT CLICK
+    BEFORE = currentSkip=0, pageSize=2
+    skip =2 (currentSkip + pageSize), limit = 2/ pageSize
+    AFTER  currentSkip=2, pageSize 2, 2+2<10 true
+
+    FROM THIRD ON CLICK OF PREV BUTTON
+    BEFORE = currentSkip=4, pageSize=2
+    skip =2 (currentSkip - pageSize), limit = 2/ pageSize
+    AFTER  currentSkip=2, pageSize 2,
+
+
+Third page => 5th & 6th product-
+    FROM SECOND PAGE ON CLICK OF NEXT BUTTON
+    BEFORE currentSkip=2, pageSize 2
+    skip=4, (currentSkip+pageSize), limit 2/pageSize
+    AFTER currentSkip=4, pageSize 2, 4+2<10 true
+
+    FROM FRORTH ON CLICK OF PREV BUTTON
+    BEFORE = currentSkip=6, pageSize=2
+    skip =4 (currentSkip - pageSize), limit = 2/ pageSize
+    AFTER  currentSkip=2, pageSize 2,
+
+Fourth page => 7th & 8th product-
+    FROM THIRD PAGE ON CLICK OF NEXT BUTTON
+    BEFORE currentSkip=4, pageSize 2
+    skip=6, (currentSkip+pageSize), limit 2/pageSize
+    AFTER currentSkip=6, pageSize 2, 6+2<10 ttrue
+
+    FROM FRORTH ON CLICK OF PREV BUTTON
+    BEFORE = currentSkip=6, pageSize=2
+    skip =4 (currentSkip - pageSize), limit = 2/ pageSize
+    AFTER  currentSkip=2, pageSize 2,
+
+Fifth page => 9th & 10th product-
+    FROM SECOND PAGE ON CLICK OF NEXT BUTTON
+    BEFORE currentSkip=6, pageSize 2
+    skip=8, (currentSkip+pageSize), limit 2/pageSize
+    AFTER currentSkip=8, pageSize 2, 8+2<10 false
+    Now NEXT BUTTON SHOULD GET DISABLED
+
+6th page => 11 & 12 th product- RUNNING OF OUT PRODUCTS
+
+
+ULITMATELY- PREV ON CLIKC => currentSkip = currentSkip-pageSize && if currentSKip  is 0 then disabled it.
+            NEXT on CLICK => currentSkip = currentSkip+pageSize && if currentSkip+pageSize >= totalLimit then disable
+
+
+    
+
+
+
+
+
+
+
+
