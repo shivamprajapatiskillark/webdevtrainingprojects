@@ -58,33 +58,57 @@ async function onFirstLoad() {
   const response = await fetchProducts(defaultSkip, defaultLimit);
   allProducts = response["products"];
   filterProducts();
+  updatePaginationEnableDisable();
 }
 
 // DOCUMET ON LOAD - Runs Only once
 document.addEventListener("DOMContentLoaded", onFirstLoad);
 
+// Disable the button
+function disableButton(buttonId) {
+  const buttonElement = document.getElementById(buttonId);
+  buttonElement.setAttribute("disabled", true);
+}
+
+function enableButton(buttonId) {
+  const buttonElement = document.getElementById(buttonId);
+  buttonElement.removeAttribute("disabled");
+}
+
 // PAGINATION RELATED FUNCTIONS
 // Arrow functions
 const handlePrevClick = async () => {
   let newCurrentOffset = currentOffset - pageSize;
-  if (newCurrentOffset < 0) {
-    // disable Prev button
-    alert("Your are on the first page.");
-  } else {
+  if (newCurrentOffset >= 0) {
     currentOffset = newCurrentOffset;
     currentLimit = currentOffset + pageSize;
     filterProducts();
   }
+  updatePaginationEnableDisable();
 };
 
 const handleNextClick = async () => {
   let newCurrentOffset = currentOffset + pageSize;
-
-  if (newCurrentOffset + pageSize >= defaultLimit) {
-    alert("Your are on the last page.");
-  } else {
+  if (newCurrentOffset + pageSize <= defaultLimit) {
     currentOffset = newCurrentOffset;
     currentLimit = currentOffset + pageSize;
     filterProducts();
   }
+  updatePaginationEnableDisable();
 };
+
+function updatePaginationEnableDisable() {
+  // Prev Button Logic
+  if (currentOffset === 0) {
+    disableButton("prevButton");
+  } else {
+    enableButton("prevButton");
+  }
+
+  //  Next Button
+  if (currentOffset + pageSize >= defaultLimit) {
+    disableButton("nextButton");
+  } else {
+    enableButton("nextButton");
+  }
+}
