@@ -1,3 +1,5 @@
+// import { addToCart } from "./cartScript";
+
 const productUrl = "https://dummyjson.com/products";
 var currentOffset = 0,
   pageSize = 10; // Number of products we want to show per page.
@@ -6,6 +8,8 @@ var defaultSkip = 0,
   defaultLimit = 100;
 
 var allProducts = [];
+
+var cartProdcuts = [];
 
 // A function to make the UI from the filtered products
 function makeUI(products) {
@@ -18,15 +22,22 @@ function makeUI(products) {
     productUIHTML =
       productUIHTML +
       `<div class="productContainer">
-    <div class="imageContainer">
-      <img class="productImage" src="${product.images[0]}" alt="${product.title}" />
-  
+        <div class="imageContainer">
+          <img class="productImage" src="${product.images[0]}" alt="${product.title}" />
+        </div>
+
+        <h3 class="title">${product.title}</h3>
+        <p class="description">${product.description}</p>
+        <div id="footer">
+          <div>
+            <h6 class="rating">${product.rating}</h6>
+          </div>
+          <div>
+            <button onClick="addToCart(${product})">Add to Cart</button>
+          </div>
+        </div>
     </div>
-  
-    <h3 class="title">${product.title}</h3>
-    <p class="description">${product.description}</p>
-    <h6 class="rating">${product.rating}</h6>
-  </div>`;
+    `;
   }
   productsElement.innerHTML = productUIHTML;
 }
@@ -44,20 +55,16 @@ async function fetchProducts(skip, limit) {
 }
 
 // Function  to filter the products
-function filterProducts() {
-  // slice(startIndex, endIndex+1)
-  //   const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
-  // const citrus = fruits.slice(1, 5 (4+1));
-  // ["Orange", "Lemon", "Apple", "Mango"]
-  console.log(allProducts);
-  let filteredProducts = allProducts.slice(currentOffset, currentLimit);
-  makeUI(filteredProducts);
+async function getProductAndDisplayByRange() {
+  // let filteredProducts = allProducts.slice(currentOffset, currentLimit);
+  // we need to make an API call and use the fetched data to the make the UI
+  const response = await fetchProducts(currentOffset, pageSize);
+  const toBeShownProducts = response["products"];
+  makeUI(toBeShownProducts);
 }
 
 async function onFirstLoad() {
-  const response = await fetchProducts(defaultSkip, defaultLimit);
-  allProducts = response["products"];
-  filterProducts();
+  getProductAndDisplayByRange();
   updatePaginationEnableDisable();
 }
 
@@ -82,7 +89,7 @@ const handlePrevClick = async () => {
   if (newCurrentOffset >= 0) {
     currentOffset = newCurrentOffset;
     currentLimit = currentOffset + pageSize;
-    filterProducts();
+    getProductAndDisplayByRange();
   }
   updatePaginationEnableDisable();
 };
@@ -92,7 +99,7 @@ const handleNextClick = async () => {
   if (newCurrentOffset + pageSize <= defaultLimit) {
     currentOffset = newCurrentOffset;
     currentLimit = currentOffset + pageSize;
-    filterProducts();
+    getProductAndDisplayByRange();
   }
   updatePaginationEnableDisable();
 };
@@ -111,4 +118,9 @@ function updatePaginationEnableDisable() {
   } else {
     enableButton("nextButton");
   }
+}
+
+// CART RELATED FUNCTIONS
+function addToCart(product) {
+  console.log(product);
 }
