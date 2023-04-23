@@ -69,6 +69,11 @@ function makeUI(products) {
 
     const aTCDiv = document.createElement("div");
     aTCDiv.setAttribute("id", `atc-div-${product.id}`);
+    /**
+     * 1. Access cartArray from cartScript, how to share variables between two .js files
+     * 2. Using isProductAlreadyAdded function we can determine whether the product already added or not.
+     * 3. If added then append remove button UI otherwise append addToCart buton
+     */
     const aTCButton = createAddToCartButton(product);
     aTCDiv.appendChild(aTCButton);
     footer.appendChild(aTCDiv);
