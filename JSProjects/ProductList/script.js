@@ -1,4 +1,6 @@
-// import { addToCart } from "./cartScript";
+import { addToCart, createAddToCartButton } from "./cartScript.js";
+
+import { setAttrubutes, createAButton } from "./utils.js";
 
 const productUrl = "https://dummyjson.com/products";
 var currentOffset = 0,
@@ -14,32 +16,89 @@ var cartProdcuts = [];
 // A function to make the UI from the filtered products
 function makeUI(products) {
   const productsElement = document.getElementById("products");
-  var productUIHTML = "";
+  productsElement.innerHTML = "";
   //  FOR OF Loop
   for (let product of products) {
-    // DOM Manipulation
+    // DOM Manipulation using DOM methods
+    // PARENT DIV
+    const productContainer = document.createElement("div");
+    productContainer.setAttribute("class", "productContainer");
 
-    productUIHTML =
-      productUIHTML +
-      `<div class="productContainer">
-        <div class="imageContainer">
-          <img class="productImage" src="${product.images[0]}" alt="${product.title}" />
-        </div>
+    // IMAGE CONTAINER
+    const imageContainer = document.createElement("div");
+    imageContainer.setAttribute("class", "imageContainer");
+    // IMAGE
+    let productImage = document.createElement("IMG");
+    productImage = setAttrubutes(productImage, {
+      class: "productImage",
+      src: product.images[0],
+      alt: product.title,
+    });
 
-        <h3 class="title">${product.title}</h3>
-        <p class="description">${product.description}</p>
-        <div id="footer">
-          <div>
-            <h6 class="rating">${product.rating}</h6>
-          </div>
-          <div>
-            <button onClick="addToCart(${product})">Add to Cart</button>
-          </div>
-        </div>
-    </div>
-    `;
+    imageContainer.appendChild(productImage);
+    // IMAGE CONTAINER ADDED AS A CHILD TO PARENT DIV
+    productContainer.appendChild(imageContainer);
+
+    const title = document.createElement("h3");
+    title.setAttribute("class", "title");
+    // title.innerHTML = product.title;
+    // title.textContent = product.title;
+    const titleText = document.createTextNode(product.title);
+    title.appendChild(titleText);
+    // TITLE IS ADDED AS CHILD TO PAENT DIV
+    productContainer.appendChild(title);
+
+    const description = document.createElement("P");
+    description.setAttribute("class", "description");
+    const descriptionText = document.createTextNode(product.description);
+    description.appendChild(descriptionText);
+    // DESCRIPTION IS ADDED AS A CHILD TO PARENT DIV
+    productContainer.appendChild(description);
+
+    // FOOTER STARTS
+    const footer = document.createElement("div");
+    footer.setAttribute("id", "footer");
+
+    const ratingDiv = document.createElement("div");
+    const rating = document.createElement("h6");
+    rating.setAttribute("class", "rating");
+    const ratingText = document.createTextNode(product.rating);
+    rating.appendChild(ratingText);
+    ratingDiv.appendChild(rating);
+    footer.appendChild(ratingDiv);
+
+    const aTCDiv = document.createElement("div");
+    aTCDiv.setAttribute("id", `atc-div-${product.id}`);
+    const aTCButton = createAddToCartButton(product);
+    aTCDiv.appendChild(aTCButton);
+    footer.appendChild(aTCDiv);
+    // FOOTER COMPLETES
+
+    productContainer.appendChild(footer);
+
+    productsElement.appendChild(productContainer);
+
+    // DOM Manipulation using InnerHTML
+    // productUIHTML =
+    //   productUIHTML +
+    //   `<div class="productContainer">
+    //     <div class="imageContainer">
+    //       <img class="productImage" src="${product.images[0]}" alt="${product.title}" />
+    //     </div>
+
+    //     <h3 class="title">${product.title}</h3>
+    //     <p class="description">${product.description}</p>
+    //     <div id="footer">
+    //       <div>
+    //         <h6 class="rating">${product.rating}</h6>
+    //       </div>
+    //       <div>
+    //         <button onClick="addToCart(${product})">Add to Cart</button>
+    //       </div>
+    //     </div>
+    // </div>
+    // `;
   }
-  productsElement.innerHTML = productUIHTML;
 }
 
 // API RELATED FUNCTIONS
@@ -65,6 +124,7 @@ async function getProductAndDisplayByRange() {
 
 async function onFirstLoad() {
   getProductAndDisplayByRange();
+  createPaginationButtons();
   updatePaginationEnableDisable();
 }
 
@@ -120,7 +180,10 @@ function updatePaginationEnableDisable() {
   }
 }
 
-// CART RELATED FUNCTIONS
-function addToCart(product) {
-  console.log(product);
-}
+const createPaginationButtons = () => {
+  const paginationContainer = document.getElementById("paginationContainer");
+  const prevButton = createAButton("prevButton", handlePrevClick, "Prev");
+  const nextButton = createAButton("nextButton", handleNextClick, "Next");
+  paginationContainer.appendChild(prevButton);
+  paginationContainer.appendChild(nextButton);
+};

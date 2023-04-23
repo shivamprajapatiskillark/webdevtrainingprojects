@@ -54,12 +54,43 @@ body {
   align-items: center;
   padding: 5px;
   border-radius: 5px;
+  position: sticky;
+  top: 0;
 }
 
 #footer {
   display: flex;
-
   flex-direction: "row";
   justify-content: space-around;
   align-items: center;
+}
+
+#cartCountIcon {
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+
+#cartCount {
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}
+
+.removeBtn {
+  background-color: red;
+  color: white;
+}
+
+.aTCBtn{
+  background-color: green;
+  color: white;
 }

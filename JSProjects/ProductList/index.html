@@ -7,8 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Products List</title>
   <link rel="stylesheet" href="./styles.css">
-  <script src="./script.js" ></script>
-  <!-- <script src="./cartScript.js"  type="module"></script> -->
+  <script src="./script.js" type="module"></script>
+  <script src="./cartScript.js" type="module"></script>
+  <script src="./utils.js" type="module"></script>
+  <script src="https://kit.fontawesome.com/63cf22bca1.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -16,13 +18,15 @@
     <div id="heading">
       <h1 id="heading">Product list project</h1>
     </div>
-    <div id="paginationContainer">
 
-      <button id="prevButton" onClick="handlePrevClick()">Prev</button>
-      <button id="nextButton" onClick="handleNextClick()">Next</button>
+    <div id="paginationContainer">
+      <i class="fa-solid fa-cart-flatbed  " id="cartCountIcon"><span id="cartCount"></span></i>
+
+
 
     </div>
   </div>
+
   <div id="products">
 
   </div>
