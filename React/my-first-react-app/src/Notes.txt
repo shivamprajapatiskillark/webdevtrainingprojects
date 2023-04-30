@@ -1,0 +1,36 @@
+ ---------
+ Component
+ --------- 
+ 1. Unit of UI (HTML + CSS (import)+ JS logic)
+ 2. React is a JS library
+      That meeans we need to codee in javascript
+      Which further indicates that all the logic will be written in .js file
+ 3. Components will be crated in javascript files only.
+    Componnets are of two types
+      1. Functional Component
+      2. Class component
+
+ -------------
+ Props & State
+ -------------  
+
+ 1. Both are related to the the data shown in the UI with the help of component.
+ 2. Props: 
+      Is the data received from the parent component. And it is non modifieable.
+      It can be of any data type ranging from primitive types like number, string to non - primitives like object arrays etc.
+      Also we can share the functions, component itself as a prop from the parent to child component.
+      We can access props using "props" keyword in the functional component and using this.props in the class component.
+ 3. State: 
+      Is the data which we create within the component and it is modofieable.
+      State can of be any data type, ranging from numbers, string to arrays and functions.
+      We can also assign functions & componens in the state.
+      To make a state in functional component, we have a hook named as useState. While in class component, we define all the states inside constructor function of the class.
+
+
+---------------
+Fragment vs Div
+---------------
+1. Fragment:
+   Helps us enclosing adjacent JSX element without creating any additional node in the DOM tree. That means it has no impace on DOM.
+   React also exports a Fragment (<Fragment></Fragment>) element that can be used in place of html fragment i.e. <></>
+2. Div not only used for enclosing but it is also used for creating and it will be visible in the DOM tree.
